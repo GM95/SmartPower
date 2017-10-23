@@ -2,6 +2,7 @@ import tkinter as tk
 
 
 class FullScreenApp():
+
     def __init__(self, master):  #tworzy główne okienko
         self.master = master
         master.title("Smart Power")
@@ -9,11 +10,10 @@ class FullScreenApp():
         self.screenWidth = self.master.winfo_screenwidth()
         self.screenHeight = self.master.winfo_screenheight()
         self.create_to_bar(self.master, self.master.winfo_screenheight()) #wywołanie medody tworzacej pasek menu
-        self.create_left_container(self.master)                           #wywołanie metody tworzacej
+        self.create_left_container(self.master)                           #wywołanie metody tworzacej kontener na wykresy
         self.create_right_container(self.master)
 
-    @staticmethod
-    def return_parent_id(master):
+    def return_parent_id(self, master):
         return master
 
     def create_to_bar(self, parent, screen_height):
@@ -22,12 +22,12 @@ class FullScreenApp():
         container_top_bar.pack(side="top")
 
     def create_left_container(self, parent, screen_height):
-        self.container_left = tk.Frame(self.master, width=(self.screenWidth/4), height=master.winfo_screenheight()-self.topBarHeight, background="red")
+        self.container_left = tk.Frame(self.master, width=(self.screenWidth/4), height=self.master.winfo_screenheight()-self.top_bar_height, background="red")
         self.container_left.pack(side="left")
 
     def create_right_container(self, parent, screen_height):
         self.container_right.pack()
-        self.container_right = tk.Frame(self.master, width=(self.screenWidth*(3/4)), height=master.winfo_screenheight()-self.topBarHeight, background="green")
+        self.container_right = tk.Frame(self.master, width=(self.screenWidth*(3/4)), height=self.master.winfo_screenheight()-self.top_bar_height, background="green")
 
         #self.containerLeft = tk.Frame(self.master, width=(self.screenWidth/4), height=master.winfo_screenheight()-self.topBarHeight, background="red")
         #self.containerLeft.pack(side="left")
