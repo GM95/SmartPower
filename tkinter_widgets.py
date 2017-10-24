@@ -1,11 +1,26 @@
 import tkinter as tk
+import random
+import fetch_data
 
+class FullScreenAppMainWindow(tk.Tk):
 
-class FullScreenAppMainWindow():
+    def __init__(self, *args, **kwargs):  #tworzy główne okienko
+        tk.Tk.__init__(self, *args, **kwargs)
+        tk.Tk.wm_title(self, "SmartPower")
+        tk.Tk.geometry(self, "{0}x{1}-0-0".format(self.winfo_screenwidth(), self.winfo_screenheight()))
+        tk.Tk.iconbitmap(self, '@/home/grzegorz/PycharmProjects/SmartPower/ps_logo.xbm')
+        self.label = tk.Label(text='0', font=("Courier", 44))
+        self.label.pack(side="top")
+        tk.Tk.after(self, 1000, self.update)
 
-    def __init__(self, master):  #tworzy główne okienko
+    def update(self):
+        #self.label.config(text="napiecie "+str(random.randint(1, 40)))
+        self.label.config(text="napiecie "+str(fetch_data.GetDataFromDataBase.get_voltage_static(random.randint(1, 50))))
+        tk.Tk.after(self, 1000, self.update)
+
+        """
         self.master = master
-        master.title("Smart Power")
+        master.title("Smart Power") 
         self.master.geometry("{0}x{1}-0-0".format(self.master.winfo_screenwidth(), self.master.winfo_screenheight()))
         self.screenWidth = self.master.winfo_screenwidth()
         self.screenHeight = self.master.winfo_screenheight()
@@ -35,7 +50,7 @@ class FullScreenAppMainWindow():
         #self.containerLeft.pack(side="left")
         #self.containerRight = tk.Frame(self.master, width=(self.screenWidth*(3/4)), height=master.winfo_screenheight()-self.topBarHeight, background="green")
         #self.containerRight.pack()
-
+        """
 
 
 """
