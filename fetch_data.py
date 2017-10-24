@@ -66,6 +66,20 @@ class GetDataFromDataBase():
         print(time)
         return time
 
+    @staticmethod
+    def get_voltage_static(id_number):
+        """
+        DZIAŁA, zwraca napięcie jako typ String dla podanego liczbowo id
+        """
+        connection = MySQLdb.connect(user="root", passwd="lenovo", db="bolid")
+        cursor = connection.cursor()
+        cursor.execute("SELECT napiecie FROM data WHERE id="+str(id_number))
+        voltage = cursor.fetchone()
+        voltage = str(voltage)
+        voltage = voltage[10:-4]
+        #print(voltage)
+        return voltage
+
 
 app = GetDataFromDataBase()
 last_id = app.get_last_id()
