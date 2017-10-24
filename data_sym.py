@@ -22,11 +22,10 @@ class GeneratingRandomData(Thread, Event):
         max_id = str(max_id)
         max_id = max_id[1:-2]
         if max_id == 'None':
-            print("Liczba wpisow  0, dodaję wpis o id=1")
+            print("Liczba wpisow  0")
             return max_id
         else:
             max_id = str(max_id)
-            max_id = max_id[1:-2]
             print("Liczba wpisow " + max_id)
             return max_id
 
@@ -44,6 +43,7 @@ class GeneratingRandomData(Thread, Event):
                 self.cursor.execute(add_line_to_base, data_to_add)
                 self.connection.commit()
                 self.max_id = 1
+                print("Dodano wpis numer " + max_id)
 
             else:
                 max_id = self.max_id
