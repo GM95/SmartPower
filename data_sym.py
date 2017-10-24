@@ -2,6 +2,7 @@ import time
 import MySQLdb
 import datetime
 from threading import Thread, Event
+from random import randint
 
 
 class GeneratingRandomData(Thread, Event):
@@ -16,7 +17,7 @@ class GeneratingRandomData(Thread, Event):
 
     def get_acctual_id(self):
         """
-        DZIAŁA zwraca najwyższe id z bazy danych
+        DZIAŁA zwraca najwyższe id z bazy danych jako string
         """
         self.cursor.execute("SELECT MAX(id) FROM data")
         max_id = self.cursor.fetchone() #maxId to maksymalne id w bazie
@@ -40,7 +41,8 @@ class GeneratingRandomData(Thread, Event):
                 add_line_to_base = ("INSERT INTO data (id,czas,napiecie,prad,predkosc) VALUES (%s,%s,%s,%s,%s)")
                 new_id = 1
                 new_id = str(new_id)
-                data_to_add = (new_id, datetime.datetime.now(), "23.2", "24.2", "25.2") #dorobić generator liczb losowych :)
+                random_number = str(randint(1000, 3000)/100)
+                data_to_add = (new_id, datetime.datetime.now(), random_number, random_number, random_number) #dorobić generator liczb losowych :)
                 self.cursor.execute(add_line_to_base, data_to_add)
                 self.connection.commit()
                 self.max_id = 1
@@ -53,10 +55,11 @@ class GeneratingRandomData(Thread, Event):
                 max_id = max_id + 1
                 add_line_to_base = ("INSERT INTO data (id,czas,napiecie,prad,predkosc) VALUES (%s,%s,%s,%s,%s)")
                 max_id = str(max_id)
-                data_to_add = (max_id, datetime.datetime.now(), "23.2", "24.2", "25.2") #dorobić generator liczb losowych :)
+                random_number = str(randint(1000, 3000)/100)
+                data_to_add = (max_id, datetime.datetime.now(), random_number, random_number, random_number) #dorobić generator liczb losowych :)
                 self.cursor.execute(add_line_to_base, data_to_add)
                 self.connection.commit()
-                time.sleep(2)
+                time.sleep(1)
                 print("Dodano wpis numer " + max_id)
 
     def clear_database(self):
@@ -67,7 +70,7 @@ class GeneratingRandomData(Thread, Event):
         self.connection.commit()
 
 
-#random_data_generator = GeneratingRandomData()
+random_data_generator = GeneratingRandomData()
 #random_data_generator.clear_database()
-#random_data_generator.data_generator()
+random_data_generator.data_generator()
 
