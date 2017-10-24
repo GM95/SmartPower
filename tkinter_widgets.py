@@ -1,16 +1,16 @@
 import tkinter as tk
 
 
-class FullScreenApp():
+class FullScreenAppMainWindow():
 
     def __init__(self, master):  #tworzy główne okienko
         self.master = master
         master.title("Smart Power")
-        self.master.geometry("{0}x{1}-0-0".format(self.master.winfo_screenwidth(), master.winfo_screenheight()))
+        self.master.geometry("{0}x{1}-0-0".format(self.master.winfo_screenwidth(), self.master.winfo_screenheight()))
         self.screenWidth = self.master.winfo_screenwidth()
         self.screenHeight = self.master.winfo_screenheight()
         self.create_to_bar(self.master, self.master.winfo_screenheight()) #wywołanie medody tworzacej pasek menu
-        self.create_left_container(self.master)                           #wywołanie metody tworzacej kontener na wykresy
+        self.create_left_container(self.master)                           #wywołanie metody tworzacej kontener na dane tekstowe
         self.create_right_container(self.master)
 
     def return_parent_id(self, master):
@@ -18,26 +18,25 @@ class FullScreenApp():
 
     def create_to_bar(self, parent, screen_height):
         top_bar_height = screen_height/20
-        container_top_bar = tk.Frame(parent, width=self.screenWidth, height=top_bar_height, background="blue")
+        container_top_bar = tk.Frame(parent, width=self.screenWidth, height=top_bar_height, background="grey")
         container_top_bar.pack(side="top")
+        return container_top_bar
 
-    def create_left_container(self, parent, screen_height):
-        self.container_left = tk.Frame(self.master, width=(self.screenWidth/4), height=self.master.winfo_screenheight()-self.top_bar_height, background="red")
-        self.container_left.pack(side="left")
+    def create_left_container(self, parent):
+        container_left = tk.Frame(parent, width=(parent.winfo_screenwidth()/10), height=parent.winfo_screenheight()-parent.winfo_screenheight()/20, background="white")
+        container_left.pack(side="left")
+        return container_left
 
-    def create_right_container(self, parent, screen_height):
-        self.container_right.pack()
-        self.container_right = tk.Frame(self.master, width=(self.screenWidth*(3/4)), height=self.master.winfo_screenheight()-self.top_bar_height, background="green")
-
+    def create_right_container(self, parent):
+        container_right = tk.Frame(parent, width=(parent.winfo_screenwidth()*(9/10)), height=parent.winfo_screenheight()-parent.winfo_screenheight()/20)
+        container_right.pack(side="right")
+        return container_right
         #self.containerLeft = tk.Frame(self.master, width=(self.screenWidth/4), height=master.winfo_screenheight()-self.topBarHeight, background="red")
         #self.containerLeft.pack(side="left")
         #self.containerRight = tk.Frame(self.master, width=(self.screenWidth*(3/4)), height=master.winfo_screenheight()-self.topBarHeight, background="green")
         #self.containerRight.pack()
 
 
-root = tk.Tk()
-app = FullScreenApp(root)
-root.mainloop()
 
 """
 class topBar(tk.Tk):
